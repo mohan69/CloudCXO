@@ -4,15 +4,12 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/CloudCXO/",
+  // This MUST be "/" for a root deployment on Netlify
+  base: "/",
   plugins: [react()],
   resolve: {
     alias: {
-      // The original `path.resolve(__dirname, ...)` is for CommonJS.
-      // Since your project is an ES Module ("type": "module" in package.json),
-      // this is the correct way to define a path alias.
       "@": path.resolve(process.cwd(), "src"),
     },
   },
 });
-
