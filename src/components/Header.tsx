@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import logo from "@/assets/logo.svg";
 import { cn } from "@/lib/utils";
 import {
@@ -50,6 +51,8 @@ const howItWorks: { title: string; href: string; description: string }[] = [
 ];
 
 const Header = () => {
+  const { isAuthenticated, logout } = useAuth();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
@@ -102,12 +105,18 @@ const Header = () => {
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <Button variant="ghost" asChild>
-            <Link to="/login">Login</Link>
-          </Button>
-          <Button asChild>
-            <Link to="/register">Register</Link>
-          </Button>
+          {isAuthenticated ? (
+            <Button onClick={logout}>Logout</Button>
+          ) : (
+            <>
+              <Button variant="ghost" asChild>
+                <Link to="/login">Login</Link>
+              </Button>
+              <Button asChild>
+                <Link to="/register">Register</Link>
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </header>
