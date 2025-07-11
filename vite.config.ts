@@ -4,12 +4,10 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // This MUST be "/" for a root deployment on Netlify
-  base: "/",
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(process.cwd(), "src"),
+      "@": path.resolve(__dirname, "./src"),
     },
   },
 });

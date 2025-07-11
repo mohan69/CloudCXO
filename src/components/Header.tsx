@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import logo from "@/assets/logo.svg";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -53,8 +54,8 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
-          <Link to="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold">CloudCXO</span>
+          <Link to="/" className="mr-6 flex items-center">
+            <img src={logo} alt="CloudCXO" className="h-8 w-auto" />
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             <NavigationMenu>
