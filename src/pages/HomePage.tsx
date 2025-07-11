@@ -50,7 +50,7 @@ const HomePage = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredCxos.length > 0 ? (
             filteredCxos.map(([role, details]) => (
-              <Link to={`/cxos/${role}`} key={role} className="group">
+              <Link to={`/leadership/${role}`} key={role} className="group">
                 <Card className="h-full transition-all duration-200 ease-in-out group-hover:scale-105 group-hover:shadow-lg">
                   <CardHeader className="items-center text-center">
                     <Avatar className="h-20 w-20 mb-4">
