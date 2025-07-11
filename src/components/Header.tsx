@@ -106,7 +106,12 @@ const Header = () => {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
           {isAuthenticated ? (
-            <Button onClick={logout}>Logout</Button>
+            <>
+              <Button variant="ghost" asChild>
+                <Link to="/admin">Admin Dashboard</Link>
+              </Button>
+              <Button onClick={logout}>Logout</Button>
+            </>
           ) : (
             <>
               <Button variant="ghost" asChild>

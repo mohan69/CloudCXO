@@ -27,7 +27,7 @@ const Login = () => {
     if (username === "cloudcxo@rightsense.in" && password === "@R1ghts2025") {
       setError("");
       login({ username });
-      navigate("/"); // Redirect to homepage after login
+      navigate("/admin"); // Redirect to admin dashboard after login
     } else {
       setError("Invalid username or password");
     }
