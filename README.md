@@ -1,64 +1,45 @@
-# Welcome to your Lovable project
+# RightSense Technologies Project
 
-## Project info
+## Getting Started
 
-**URL**: https://lovable.dev/projects/669b6a5b-c5a7-41cc-9630-658c02d5473a
+This project is built with Vite, React, TypeScript, and Tailwind CSS.
 
-## How can I edit this code?
+### Prerequisites
 
-There are several ways of editing your application.
+Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed. Using [nvm](https://github.com/nvm-sh/nvm) is recommended to manage Node versions.
 
-**Use Lovable**
+### Local Development
 
-Simply visit the [RightSenseProject](https://lovable.dev/projects/669b6a5b-c5a7-41cc-9630-658c02d5473a) and start prompting.
+To get started with local development, follow these steps:
 
-Changes made via Lovable will be committed automatically to this repo.
+1.  **Clone the repository:**
+    ```sh
+    git clone <YOUR_GIT_URL>
+    ```
 
-**Use your preferred IDE**
+2.  **Navigate to the project directory:**
+    ```sh
+    cd <YOUR_PROJECT_NAME>
+    ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+3.  **Install dependencies:**
+    ```sh
+    npm install
+    ```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+4.  **Start the development server:**
+    This will start a local server with hot-reloading.
+    ```sh
+    npm run dev
+    ```
 
-Follow these steps:
+## Tech Stack
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+-   **Framework**: [React](https://reactjs.org/)
+-   **Build Tool**: [Vite](https://vitejs.dev/)
+-   **Language**: [TypeScript](https://www.typescriptlang.org/)
+-   **UI Components**: [shadcn-ui](https://ui.shadcn.com/)
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 
 ## Deployment
 
@@ -75,7 +56,7 @@ Before your first deployment, you need to configure your project.
     ```
 
 2.  **Add deployment scripts to `package.json`**:
-    Add `predeploy` and `deploy` scripts to the `scripts` section.
+    The necessary `predeploy` and `deploy` scripts are already included.
     ```json
     "scripts": {
       //... other scripts

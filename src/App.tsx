@@ -1,50 +1,20 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Routes, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
-import Home from "./pages/Home";
-import CXORegister from "./pages/CXORegister";
-import BusinessRequest from "./pages/BusinessRequest";
-import HowItWorks from "./pages/HowItWorks";
-import CXOList from "./pages/CXOList";
-import Admin from "./pages/Admin";
-import NotFound from "./pages/NotFound";
-import LoginPage from "./pages/Login";
-import { AuthProvider } from "./contexts/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import CxoProfilePage from "./pages/CxoProfilePage";
+import HomePage from "./pages/HomePage";
+import Layout from "./components/Layout";
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cxo-register" element={<CXORegister />} />
-          <Route path="/request" element={<BusinessRequest />} />
-          <Route path="/how-it-works" element={<HowItWorks />} />
-          <Route path="/cxos/:role" element={<CXOList />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          {/* Generic Route for CXO Profiles */}
+          <Route path="/cxos/:role" element={<CxoProfilePage />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
+}
 
 export default App;
