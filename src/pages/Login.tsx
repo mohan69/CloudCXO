@@ -22,7 +22,9 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Hardcoded credentials as requested
-    if (username === "admin" && password === "password") {
+    // IMPORTANT: Hardcoding credentials in frontend code is insecure.
+    // This should be replaced with a call to a secure backend authentication service.
+    if (username === "cloudcxo@rightsense.in" && password === "@R1ghts2025") {
       setError("");
       login({ username });
       navigate("/"); // Redirect to homepage after login
@@ -45,11 +47,11 @@ const Login = () => {
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="username">Username</Label>
-                <Input id="username" type="text" placeholder="admin" required value={username} onChange={(e) => setUsername(e.target.value)} />
+                <Input id="username" type="email" placeholder="cloudcxo@rightsense.in" required value={username} onChange={(e) => setUsername(e.target.value)} />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" required placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               {error && <p className="text-sm font-medium text-destructive">{error}</p>}
               <Button type="submit" className="w-full">Login</Button>
