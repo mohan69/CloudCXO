@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, User, Briefcase, HelpCircle, Shield } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "@/assets/logo.png";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   const navigation = [
     { name: "Home", href: "/", icon: Briefcase },
@@ -50,12 +58,20 @@ const Navigation = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" asChild>
-              <Link to="/request">Post Requirement</Link>
-            </Button>
-            <Button variant="professional" asChild>
-              <Link to="/cxo-register">Join as CXO</Link>
-            </Button>
+            {isAuthenticated ? (
+              <Button variant="professional" onClick={handleLogout}>
+                Logout
+              </Button>
+            ) : (
+              <>
+                <Button variant="ghost" asChild>
+                  <Link to="/request">Post Requirement</Link>
+                </Button>
+                <Button variant="professional" asChild>
+                  <Link to="/cxo-register">Join as CXO</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -93,16 +109,45 @@ const Navigation = () => {
                 );
               })}
               <div className="pt-4 pb-2 space-y-2">
-                <Button variant="ghost" className="w-full justify-start" asChild>
-                  <Link to="/request" onClick={() => setIsMenuOpen(false)}>
-                    Post Requirement
-                  </Link>
-                </Button>
-                <Button variant="professional" className="w-full" asChild>
-                  <Link to="/cxo-register" onClick={() => setIsMenuOpen(false)}>
-                    Join as CXO
-                  </Link>
-                </Button>
+                {isAuthenticated ? (
+                  <Button
+                    variant="professional"
+                    className="w-full"
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start"
+                      asChild
+                    >
+                      <Link
+                        to="/request"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Post Requirement
+                      </Link>
+                    </Button>
+                    <Button
+                      variant="professional"
+                      className="w-full"
+                      asChild
+                    >
+                      <Link
+                        to="/cxo-register"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Join as CXO
+                      </Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </div>

@@ -1,0 +1,18 @@
+{
+  "stats": {
+    "totalCXOs": 24,
+    "totalRequests": 156,
+    "activeProjects": 42,
+    "completedProjects": 89
+  },
+  "cxos": [
+    { "id": 1, "name": "Sarah Johnson", "email": "sarah@example.com", "expertise": "Technology", "experience": "15 years", "status": "Active" },
+    { "id": 2, "name": "Michael Chen", "email": "michael@example.com", "expertise": "Marketing", "experience": "12 years", "status": "Pending" },
+    { "id": 3, "name": "Emily Rodriguez", "email": "emily@example.com", "expertise": "Operations", "experience": "18 years", "status": "Active" }
+  ],
+  "businessRequests": [
+    { "id": 1, "company": "TechCorp Inc", "requirement": "Digital Transformation Strategy", "budget": "$50,000", "status": "Open", "date": "2024-01-15" },
+    { "id": 2, "company": "Growth Solutions", "requirement": "Marketing Automation Setup", "budget": "$25,000", "status": "In Progress", "date": "2024-01-14" },
+    { "id": 3, "company": "Innovation Labs", "requirement": "Product Strategy Review", "budget": "$75,000", "status": "Completed", "date": "2024-01-13" }
+  ]
+}
