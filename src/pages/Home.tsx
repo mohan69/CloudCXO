@@ -93,20 +93,22 @@ const Home = () => {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {cxoRoles.map((role, index) => (
-              <Card key={role.abbr} className="group hover:shadow-hover transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center">
-                      <span className="text-primary-foreground font-bold text-sm">{role.abbr}</span>
+              <Link to={`/cxos/${role.abbr}`} key={role.abbr}>
+                <Card className="group hover:shadow-hover transition-all duration-300 animate-fade-in h-full" style={{ animationDelay: `${index * 100}ms` }}>
+                  <CardHeader>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center">
+                        <span className="text-primary-foreground font-bold text-sm">{role.abbr}</span>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                     </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                  </div>
-                  <CardTitle className="text-lg">{role.role}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base">{role.description}</CardDescription>
-                </CardContent>
-              </Card>
+                    <CardTitle className="text-lg">{role.role}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-base">{role.description}</CardDescription>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>

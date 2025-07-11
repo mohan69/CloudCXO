@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import CXORegister from "./pages/CXORegister";
 import BusinessRequest from "./pages/BusinessRequest";
 import HowItWorks from "./pages/HowItWorks";
+import CXOList from "./pages/CXOList";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/Login";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/cxo-register" element={<CXORegister />} />
           <Route path="/request" element={<BusinessRequest />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/cxos/:role" element={<CXOList />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/admin"
