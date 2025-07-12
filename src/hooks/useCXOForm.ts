@@ -1,67 +1,83 @@
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import type { CXOFormData } from "@/types/cxo-register";
+
+// Define the shape of the form data
+interface CXOFormData {
+  // Personal Info
+  fullName: string;
+  email: string;
+  phone: string;
+  linkedin: string;
+  // Professional Info
+  role: string;
+  experience: string;
+  expertise: string[];
+  bio: string;
+  // Documents
+  resume: File | null;
+  photo: File | null;
+}
+
+const initialFormData: CXOFormData = {
+  fullName: "",
+  email: "",
+  phone: "",
+  linkedin: "",
+  role: "CFO",
+  experience: "10-15 years",
+  expertise: [],
+  bio: "",
+  resume: null,
+  photo: null,
+};
 
 export const useCXOForm = () => {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState<CXOFormData>({
-    fullName: "",
-    email: "",
-    phone: "",
-    whatsapp: "",
-    linkedinProfile: "",
-    expertise: [],
-    availability: "",
-    experience: "",
-    bio: "",
-    profilePicture: null,
-    resume: null,
-  });
+  const [formData, setFormData] = useState<CXOFormData>(initialFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState<
+    "success" | "error" | null
+  >(null);
 
-  const handleExpertiseChange = (expertiseId: string, checked: boolean) => {
-    console.log('Expertise change:', expertiseId, checked);
-    setFormData(prev => {
-      const newExpertise = checked 
-        ? [...prev.expertise, expertiseId]
-        : prev.expertise.filter(id => id !== expertiseId);
-      console.log('New expertise array:', newExpertise);
-      return {
-        ...prev,
-        expertise: newExpertise
-      };
+  const handleExpertiseChange = (expertiseValue: string) => {
+    setFormData((prev) => {
+      const newExpertise = prev.expertise.includes(expertiseValue)
+        ? prev.expertise.filter((e) => e !== expertiseValue)
+        : [...prev.expertise, expertiseValue];
+      return { ...prev, expertise: newExpertise };
     });
   };
 
-  const handleFileUpload = (field: 'profilePicture' | 'resume', file: File | null) => {
-    setFormData(prev => ({ ...prev, [field]: file }));
+  const handleFileUpload = (file: File, field: "resume" | "photo") => {
+    setFormData((prev) => ({ ...prev, [field]: file }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    // Basic validation
-    if (!formData.fullName || !formData.email || !formData.expertise.length) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      return;
+    console.log("Submit handler triggered.");
+
+    setIsSubmitting(true);
+    setSubmissionStatus(null);
+    console.log("State set to: isSubmitting=true");
+
+    try {
+      console.log("Submitting CXO Registration Data:", formData);
+      // In a real app, you would send this data to a backend API.
+      // We'll simulate a successful API call with a timeout.
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      console.log("API call simulation finished successfully.");
+
+      setSubmissionStatus("success");
+      console.log("State set to: submissionStatus=success");
+    } catch (error) {
+      console.error("An error occurred during submission:", error);
+      setSubmissionStatus("error");
+    } finally {
+      setIsSubmitting(false);
+      console.log("State set to: isSubmitting=false");
     }
-
-    toast({
-      title: "Registration Submitted!",
-      description: "Your CXO profile has been submitted for review. We'll contact you within 24 hours.",
-    });
-
-    console.log("CXO Registration Data:", formData);
   };
 
   return {
-    formData,
-    setFormData,
-    handleExpertiseChange,
-    handleFileUpload,
-    handleSubmit,
+    formData, setFormData, isSubmitting, submissionStatus,
+    handleExpertiseChange, handleFileUpload, handleSubmit,
   };
 };
