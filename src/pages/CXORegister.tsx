@@ -50,7 +50,7 @@ const CXORegister = () => {
             <CardDescription>
               Complete your profile to start receiving opportunities from businesses seeking executive leadership.
             </CardDescription>
-          </Header>
+          </CardHeader>
           <CardContent className="space-y-8">
             <form onSubmit={handleSubmit} className="space-y-8">
               <PersonalInfoSection
