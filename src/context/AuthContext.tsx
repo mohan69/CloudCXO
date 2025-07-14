@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 // Define the shape of the context data
 // In a real app, you would replace 'any' with a specific user type interface
@@ -16,13 +16,32 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<any>(null);
 
+  // Check localStorage on mount to persist authentication state
+  useEffect(() => {
+    const authStatus = localStorage.getItem('isAuthenticated');
+    const userData = localStorage.getItem('userData');
+    if (authStatus === 'true' && userData) {
+      try {
+        setUser(JSON.parse(userData));
+      } catch (error) {
+        // If parsing fails, clear invalid data
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('userData');
+      }
+    }
+  }, []);
+
   // In a real app, you'd have more complex logic here, like API calls
   const login = (userData: any) => {
     setUser(userData);
+    localStorage.setItem('isAuthenticated', 'true');
+    localStorage.setItem('userData', JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('userData');
   };
 
   const value = { isAuthenticated: !!user, user, login, logout };
