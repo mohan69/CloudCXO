@@ -3,11 +3,29 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables. Please check your .env.local file.')
+// Fallback for when Supabase is not configured
+const SUPABASE_CONFIGURED = supabaseUrl && supabaseAnonKey && 
+  !supabaseUrl.includes('your-project') && 
+  !supabaseAnonKey.includes('your-anon-key');
+
+let supabase: any = null;
+
+if (SUPABASE_CONFIGURED) {
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
+} else {
+  console.warn('Supabase not configured. Using fallback authentication.');
+  // Create a mock client for development
+  supabase = {
+    auth: {
+      signInWithPassword: async () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      signOut: async () => ({ error: null }),
+      getSession: async () => ({ data: { session: null }, error: null }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+    }
+  };
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export { supabase, SUPABASE_CONFIGURED };
 
 // Database Types
 export interface Stats {
