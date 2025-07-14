@@ -81,7 +81,13 @@ const HowItWorks = () => {
     },
   ];
 
-  const ProcessStep = ({ step, title, description, icon: Icon, isLast = false }: any) => (
+  const ProcessStep = ({ step, title, description, icon: Icon, isLast = false }: {
+    step: string;
+    title: string;
+    description: string;
+    icon: React.ComponentType<{ className?: string }>;
+    isLast?: boolean;
+  }) => (
     <div className="relative">
       <div className="flex items-start">
         <div className="flex-shrink-0">

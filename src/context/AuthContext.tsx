@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
+import { monitoring } from "@/lib/monitoring";
 
 // Define the shape of the context data
 interface AuthContextType {
@@ -49,9 +50,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
 
       if (error) {
+        monitoring.trackAuthEvent('login_failed');
         return { success: false, error: error.message };
       }
 
+      monitoring.trackAuthEvent('login');
       return { success: true };
     } catch (error) {
       return { success: false, error: "An unexpected error occurred" };
@@ -63,6 +66,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = async () => {
     setLoading(true);
     await supabase.auth.signOut();
+    monitoring.trackAuthEvent('logout');
     setUser(null);
     setLoading(false);
   };
