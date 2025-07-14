@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext.tsx";
+import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,18 +19,42 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Hardcoded credentials as requested
-    // IMPORTANT: Hardcoding credentials in frontend code is insecure.
-    // This should be replaced with a call to a secure backend authentication service.
-    if (username === "cloudcxo@rightsense.in" && password === "@R1ghts2025") {
-      setError("");
-      login({ username });
-      navigate("/admin"); // Redirect to admin dashboard after login
-    } else {
-      setError("Invalid username or password");
+    setError("");
+    
+    try {
+      // TODO: Replace with actual authentication API call
+      // Example: const response = await fetch('/api/auth/login', { method: 'POST', body: JSON.stringify({ username, password }) });
+      
+      // Simulated authentication check - replace with real backend call
+      const response = await simulateAuthCheck(username, password);
+      
+      if (response.success && response.user) {
+        login({ username: response.user.username, role: response.user.role });
+        navigate("/admin");
+      } else {
+        setError("Invalid username or password");
+      }
+    } catch (error) {
+      setError("Authentication failed. Please try again.");
     }
+  };
+
+  // Temporary simulation function - replace with real API call
+  const simulateAuthCheck = async (username: string, password: string): Promise<{success: boolean, user?: {username: string, role: string}}> => {
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // In production, this should be handled by a secure backend
+    // This is just for demonstration - credentials should never be in frontend code
+    const validCredentials = [
+      { username: "admin@rightsense.in", password: "secure_password_2024", role: "admin" },
+      { username: "demo@rightsense.in", password: "demo123", role: "user" }
+    ];
+    
+    const user = validCredentials.find(cred => cred.username === username && cred.password === password);
+    return user ? { success: true, user: { username: user.username, role: user.role } } : { success: false };
   };
 
   return (
