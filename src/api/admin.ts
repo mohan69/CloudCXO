@@ -1,14 +1,14 @@
-import { supabase, Stats, CXO, BusinessRequest, SUPABASE_CONFIGURED } from '@/lib/supabase';
+import { Stats, CXO, BusinessRequest } from '@/types/admin';
 
-// Fallback data for when Supabase is not configured
-const FALLBACK_STATS: Stats = {
+// Sample data for immediate functionality
+const SAMPLE_STATS: Stats = {
   total_cxos: 24,
   total_requests: 156,
   active_projects: 42,
   completed_projects: 89
 };
 
-const FALLBACK_CXOS: CXO[] = [
+const SAMPLE_CXOS: CXO[] = [
   { 
     id: '1', 
     name: 'Sarah Johnson', 
@@ -38,7 +38,7 @@ const FALLBACK_CXOS: CXO[] = [
   }
 ];
 
-const FALLBACK_BUSINESS_REQUESTS: BusinessRequest[] = [
+const SAMPLE_BUSINESS_REQUESTS: BusinessRequest[] = [
   { 
     id: '1', 
     company: 'TechCorp Inc', 
@@ -69,141 +69,33 @@ const FALLBACK_BUSINESS_REQUESTS: BusinessRequest[] = [
 ];
 
 export const getStats = async (): Promise<Stats> => {
-  // Always return fallback data first, try Supabase if configured
-  if (!SUPABASE_CONFIGURED) {
-    console.log('Using fallback stats data (Supabase not configured)');
-    return FALLBACK_STATS;
-  }
-
-  try {
-    // Get total CXOs
-    const { count: totalCXOs, error: cxoError } = await supabase
-      .from('cxos')
-      .select('*', { count: 'exact', head: true });
-
-    if (cxoError) throw cxoError;
-
-    // Get total requests
-    const { count: totalRequests, error: requestError } = await supabase
-      .from('business_requests')
-      .select('*', { count: 'exact', head: true });
-
-    if (requestError) throw requestError;
-
-    // Get active projects (In Progress status)
-    const { count: activeProjects, error: activeError } = await supabase
-      .from('business_requests')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'In Progress');
-
-    if (activeError) throw activeError;
-
-    // Get completed projects
-    const { count: completedProjects, error: completedError } = await supabase
-      .from('business_requests')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'Completed');
-
-    if (completedError) throw completedError;
-
-    return {
-      total_cxos: totalCXOs || 0,
-      total_requests: totalRequests || 0,
-      active_projects: activeProjects || 0,
-      completed_projects: completedProjects || 0,
-    };
-  } catch (error) {
-    console.error('Error fetching stats from Supabase, using fallback:', error);
-    return FALLBACK_STATS;
-  }
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 300));
+  return SAMPLE_STATS;
 };
 
 export const getCXOs = async (): Promise<CXO[]> => {
-  // Always return fallback data first, try Supabase if configured
-  if (!SUPABASE_CONFIGURED) {
-    console.log('Using fallback CXO data (Supabase not configured)');
-    return FALLBACK_CXOS;
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from('cxos')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-
-    return data || FALLBACK_CXOS;
-  } catch (error) {
-    console.error('Error fetching CXOs from Supabase, using fallback:', error);
-    return FALLBACK_CXOS;
-  }
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 300));
+  return SAMPLE_CXOS;
 };
 
 export const getBusinessRequests = async (): Promise<BusinessRequest[]> => {
-  // Always return fallback data first, try Supabase if configured
-  if (!SUPABASE_CONFIGURED) {
-    console.log('Using fallback business requests data (Supabase not configured)');
-    return FALLBACK_BUSINESS_REQUESTS;
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from('business_requests')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-
-    return data || FALLBACK_BUSINESS_REQUESTS;
-  } catch (error) {
-    console.error('Error fetching business requests from Supabase, using fallback:', error);
-    return FALLBACK_BUSINESS_REQUESTS;
-  }
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 300));
+  return SAMPLE_BUSINESS_REQUESTS;
 };
 
-// Function to add a new CXO
+// Function to add a new CXO (placeholder for now)
 export const addCXO = async (cxo: Omit<CXO, 'id' | 'created_at' | 'updated_at'>): Promise<CXO | null> => {
-  if (!SUPABASE_CONFIGURED) {
-    console.warn('Cannot add CXO: Supabase not configured');
-    return null;
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from('cxos')
-      .insert([cxo])
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    return data;
-  } catch (error) {
-    console.error('Error adding CXO:', error);
-    return null;
-  }
+  console.log('Add CXO called:', cxo);
+  // In a real implementation, this would save to database
+  return null;
 };
 
-// Function to add a new business request
+// Function to add a new business request (placeholder for now)
 export const addBusinessRequest = async (request: Omit<BusinessRequest, 'id' | 'created_at' | 'updated_at'>): Promise<BusinessRequest | null> => {
-  if (!SUPABASE_CONFIGURED) {
-    console.warn('Cannot add business request: Supabase not configured');
-    return null;
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from('business_requests')
-      .insert([request])
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    return data;
-  } catch (error) {
-    console.error('Error adding business request:', error);
-    return null;
-  }
+  console.log('Add business request called:', request);
+  // In a real implementation, this would save to database
+  return null;
 };

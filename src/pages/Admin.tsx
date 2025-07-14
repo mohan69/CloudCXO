@@ -6,9 +6,6 @@ import Dashboard from "@/components/admin/Dashboard";
 import Analytics from "@/components/admin/Analytics";
 import CXOManagement from "@/components/admin/CXOManagement";
 import RequestManagement from "@/components/admin/RequestManagement";
-import { SUPABASE_CONFIGURED } from "@/lib/supabase";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Info } from "lucide-react";
 
 const Admin = () => {
   const [stats, setStats] = useState<Stats | null>(null);
@@ -48,17 +45,6 @@ const Admin = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {!SUPABASE_CONFIGURED && (
-        <Alert className="mb-6 bg-blue-50 border-blue-200">
-          <Info className="h-4 w-4" />
-          <AlertDescription>
-            <strong>Demo Mode:</strong> You're using fallback authentication and sample data. 
-            To enable full functionality with real data persistence, please configure Supabase 
-            following the setup guide in <code>SUPABASE_SETUP.md</code>.
-          </AlertDescription>
-        </Alert>
-      )}
-      
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
         <p className="text-muted-foreground mt-2">
@@ -75,11 +61,11 @@ const Admin = () => {
         </TabsList>
 
         <TabsContent value="dashboard" className="space-y-6">
-          <Dashboard stats={stats} cxos={cxos} requests={requests} />
+          {stats && <Dashboard stats={stats} cxos={cxos} requests={requests} />}
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-6">
-          <Analytics stats={stats} cxos={cxos} requests={requests} />
+          {stats && <Analytics stats={stats} cxos={cxos} requests={requests} />}
         </TabsContent>
 
         <TabsContent value="cxos" className="space-y-6">
