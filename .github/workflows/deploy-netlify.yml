@@ -24,12 +24,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Netlify
-        uses: netlify/actions/cli@v3
-        with:
-          args: deploy --dir=dist --prod --site-id ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli@11
+
+      - name: Deploy to Netlify (CLI)
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          netlify deploy --dir=dist --prod --site-id "$NETLIFY_SITE_ID"
 
       - name: Post-deploy info
         run: |
