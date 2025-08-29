@@ -140,7 +140,7 @@ const HowItWorks = () => {
               </div>
               <div className="mt-8">
                 <Button variant="professional" size="lg" asChild>
-                  <Link to="/cxo-register">
+                  <Link to="/register">
                     Join as CXO <ArrowRight className="w-5 h-5" />
                   </Link>
                 </Button>
@@ -304,8 +304,8 @@ const HowItWorks = () => {
             Join our platform today and experience the power of fractional executive leadership.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="hero" size="lg" asChild>
-              <Link to="/cxo-register">
+              <Button variant="hero" size="lg" asChild>
+              <Link to="/register">
                 Join as CXO <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>

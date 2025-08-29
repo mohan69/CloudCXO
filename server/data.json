@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "username": "admin@rightsense.in",
+      "password": "secure_password_2024",
+      "role": "admin"
+    },
+    {
+      "id": "u2",
+      "username": "demo@rightsense.in",
+      "password": "demo123",
+      "role": "user"
+    },
+    {
+      "id": "epcgMfUFfurzu2kvC0XRI",
+      "username": "smoke+user@example.com",
+      "password": "smokePass123",
+      "role": "user"
+    }
+  ],
+  "registrations": [
+    {
+      "id": "qik0lwTL_irALnZFuQsH8",
+      "createdAt": "2025-08-29T06:51:22.544Z",
+      "email": "test@example.com",
+      "fullName": "Test User",
+      "role": "CFO"
+    },
+    {
+      "id": "yDxUZxDxSpYPsfLwBa67X",
+      "createdAt": "2025-08-29T07:11:03.776Z",
+      "fullName": "Smoke Test User",
+      "email": "smoke+registration@example.com",
+      "phone": "+1234567890",
+      "linkedin": "",
+      "role": "CFO",
+      "experience": "5-10 years",
+      "expertise": [],
+      "bio": "This is a smoke test.",
+      "resume": null,
+      "photo": null,
+      "linkedinProfile": "https://linkedin.com/in/smoke"
+    }
+  ]
+}

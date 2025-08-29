@@ -27,11 +27,20 @@ To get started with local development, follow these steps:
     npm install
     ```
 
-4.  **Start the development server:**
-    This will start a local server with hot-reloading.
+4.  **Start the development servers:**
+    - Start backend API (in a separate terminal):
+
     ```sh
-    npm run dev
+    npm run dev:api
     ```
+
+    - Start frontend dev server:
+
+    ```sh
+    npm run dev:client
+    ```
+
+    The Vite dev server proxies `/api` calls to `http://localhost:4000`.
 
 ## Tech Stack
 

@@ -20,9 +20,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const authStatus = localStorage.getItem('isAuthenticated');
     const userData = localStorage.getItem('userData');
+    const token = localStorage.getItem('authToken');
     if (authStatus === 'true' && userData) {
       try {
         setUser(JSON.parse(userData));
+        if (token) {
+          // store token in memory if needed by other parts
+        }
       } catch (error) {
         // If parsing fails, clear invalid data
         localStorage.removeItem('isAuthenticated');
@@ -36,6 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(userData);
     localStorage.setItem('isAuthenticated', 'true');
     localStorage.setItem('userData', JSON.stringify(userData));
+  // token should be set by the caller into localStorage under 'authToken'
   };
 
   const logout = () => {

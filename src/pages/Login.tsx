@@ -24,18 +24,30 @@ const Login = () => {
     setError("");
     
     try {
-      // TODO: Replace with actual authentication API call
-      // Example: const response = await fetch('/api/auth/login', { method: 'POST', body: JSON.stringify({ username, password }) });
-      
-      // Simulated authentication check - replace with real backend call
-      const response = await simulateAuthCheck(username, password);
-      
-      if (response.success && response.user) {
-        login({ username: response.user.username, role: response.user.role });
-        navigate("/admin");
-      } else {
-        setError("Invalid username or password");
-      }
+        // Try real backend first
+        const resp = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password }),
+        });
+
+        if (resp.ok) {
+          const data = await resp.json();
+          // store token
+          if (data.token) localStorage.setItem('authToken', data.token);
+          login({ username: data.user.username, role: data.user.role });
+          navigate('/admin');
+          return;
+        }
+
+        // Fallback to simulated auth if backend returns error
+        const response = await simulateAuthCheck(username, password);
+        if (response.success && response.user) {
+          login({ username: response.user.username, role: response.user.role });
+          navigate('/admin');
+        } else {
+          setError('Invalid username or password');
+        }
     } catch (error) {
       setError("Authentication failed. Please try again.");
     }

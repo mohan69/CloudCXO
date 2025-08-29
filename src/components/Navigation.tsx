@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, User, Briefcase, HelpCircle, Shield } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "@/assets/logo.png";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,7 +18,7 @@ const Navigation = () => {
 
   const navigation = [
     { name: "Home", href: "/", icon: Briefcase },
-    { name: "For CXOs", href: "/cxo-register", icon: User },
+    { name: "For CXOs", href: "/register", icon: User },
     { name: "For Businesses", href: "/request", icon: Briefcase },
     { name: "How It Works", href: "/how-it-works", icon: HelpCircle },
     { name: "Admin", href: "/admin", icon: Shield },
@@ -68,7 +68,7 @@ const Navigation = () => {
                   <Link to="/request">Post Requirement</Link>
                 </Button>
                 <Button variant="professional" asChild>
-                  <Link to="/cxo-register">Join as CXO</Link>
+                  <Link to="/register">Join as CXO</Link>
                 </Button>
               </>
             )}
@@ -140,7 +140,7 @@ const Navigation = () => {
                       asChild
                     >
                       <Link
-                        to="/cxo-register"
+                        to="/register"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         Join as CXO
